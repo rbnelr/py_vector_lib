@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "py_vector_lib", "py_vector_lib\py_vector_lib.pyproj", "{4A7A1DCE-73D1-427D-B761-3EE6FC067332}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A7A1DCE-73D1-427D-B761-3EE6FC067332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7A1DCE-73D1-427D-B761-3EE6FC067332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB745516-2DFB-4C71-AE4F-6D32DF3FE839}
+	EndGlobalSection
+EndGlobal
