@@ -1,5 +1,12 @@
 from vectors import *
 
+# TODO:
+#  matricies
+#  -hmat ?
+#  -no m2 m3 etc., let mats be flexible?
+#  -mats are inherited from tuple
+#  quaternions
+
 def timeit():
 	import timeit
 	

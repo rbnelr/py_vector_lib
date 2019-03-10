@@ -65,8 +65,10 @@ class Vector(tuple):
 			
 		return type("v%d" % dims, (Vector,), dict)
 
-	# with this way of implementing the operators a 'v2() + v2()' is ~60x slower than a tuple concat, which seems rediculous to me
-	# but the only way of making it faster (still slower than tuple concat) is to write the operators for each vector size and each op manually
+	# with this way of implementing the operators a 'v2() + v2()' is ~60x slower than a tuple concat, which seems ridiculous to me
+	# this probably is because of the creation of temporary tuples and lists (which i think is implossible to prevent while my vectors are based on immutable tuples)
+	# function call overhead might also be a source of big overhead
+	# the only way of making it faster (reduce temp tuples, lists and func calls) (but still slower than tuple concat) is to write the operators for each vector size and each op manually
 	# TODO: is there any way of having this be abstract but still fast?
 	# i tried to use cython (in visual studio on windows), which i eventually got to work, but it seems like a pain to work with, and after updating my python version i started to get a crash with cython, so i abandoned this for now
 	
