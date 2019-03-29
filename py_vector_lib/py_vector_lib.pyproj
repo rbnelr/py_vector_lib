@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4a7a1dce-73d1-427d-b761-3ee6fc067332</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>vectors.py</StartupFile>
+    <StartupFile>vector.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,7 +27,10 @@
     <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="vectors.py" />
+    <Compile Include="matrix.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="vector.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|VisualStudio|Manual Python 3.6 with debug bins" />

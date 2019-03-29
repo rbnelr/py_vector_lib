@@ -209,35 +209,37 @@ class Vector(tuple):
 def length_sqr(self):
 	return sum(self * self)
 
-def length(self):
-	return math.sqrt( sum(self * self) )
+def length(v):
+	return math.sqrt( sum(v * v) )
 
-def normalize(self):
-	return self / length(self)
+def normalize(v):
+	return v / length(v)
 
-def normalize_or_zero(self):
-	len = length(self)
+def normalize_or_zero(v):
+	len = length(v)
 	if len == 0:
 		return 0
-	return self / len
+	return v / len
 
-def dot(self, other):
-	Vector.same_vecs(self, other)
-	return sum(self * other)
+def dot(l, r):
+	Vector.same_vecs(l, r)
+	return sum(l * r)
 
-def cross(self, other): # cross(v3,v3): cross product,  cross(v2,v2):  cross product hack, same as cross(v3(self, 0), v3(other, 0)).z, ie the cross product of the 2d vectors on the z=0 plane in 3d space and then return the z coord of that (signed mag of cross product)
-	if (len(self) == 3):
-		Vector.are_vecs(self, other, 3)
+def cross(l, r): # cross(v3,v3): cross product,  cross(v2,v2):  cross product hack, same as cross(v3(self, 0), v3(other, 0)).z, ie the cross product of the 2d vectors on the z=0 plane in 3d space and then return the z coord of that (signed mag of cross product)
+	Vector.same_vecs(l, r)
+
+	if len(l) == 3:
 		return v3(	self.y * other.z - self.z * other.y,
 					self.z * other.x - self.x * other.z,
 					self.x * other.y - self.y * other.x )
-	else:
-		Vector.are_vecs(self, other, 2)
+	elif len(l) == 2:
 		return self.x * other.y - self.y * other.x
+	else:
+		raise ValueError("Vectors must be of size 2 or 3 for cross product ('%s')" % (size, repr(self)))
 
-def rotate90(self): # rotate v2 by 90 degrees counter clockwise
-	Vector.is_vec(self, 2)
-	return v2(-self.y, self.x)
+def rotate90(v): # rotate v2 by 90 degrees counter clockwise
+	Vector.is_vec(v, 2)
+	return v2(-v.y, v.x)
 
 
 vector_classes = [Vector.create_class(dim) for dim in range(2,4 +1)]
@@ -245,116 +247,3 @@ vector_classes = [Vector.create_class(dim) for dim in range(2,4 +1)]
 v2 = vector_classes[0]
 v3 = vector_classes[1]
 v4 = vector_classes[2]
-
-#def length_sqr(v):
-#	return np.sum(v**2)
-#def length(v):
-#	return np.sqrt(np.sum(v**2))
-#
-#def normalize(v):
-#	return v / np.sqrt(np.sum(v**2))
-#def normalize_or_zero(v):
-#	len = np.sqrt(np.sum(v**2))
-#	return np.zeros(v.shape) if len == 0 else v / len
-#
-#
-#class Matrix(np.ndarray):
-#	
-#	def __repr__(self):
-#		rows = [ "(%s)" % ", ".join([repr(cell) for cell in row]) for row in self ]
-#		tmp = ",\n   ".join(rows)
-#		return "m%d(%s)" % (self.shape[0], tmp)
-#	def __str__(self): return repr(self)
-#
-#	def create_class(sqr_dims):
-#		vec_class = vector_classes[sqr_dims -2]
-#
-#		dict = {}
-#		
-#		def __new__(cls, mat):
-#			if not (isinstance(mat, Matrix) and mat.shape[0] < sqr_dims and mat.shape[1] < sqr_dims):
-#				raise ValueError("m%d(): argument must be a matrix of smaller size than %d" % (sqr_dims, str(args[0]), dims, sqr_dims))
-#			m = cls.ident()
-#			m[:mat.shape[0],:mat.shape[1]] = mat
-#			return m 
-#		dict["__new__"] = __new__
-#
-#		def ident(cls):
-#			obj = np.identity(sqr_dims).view(cls)
-#			return obj
-#		dict["ident"] = classmethod(ident)
-#		
-#		def zero(cls):
-#			obj = np.zeros((sqr_dims,sqr_dims)).view(cls)
-#			return obj
-#		dict["zero"] = classmethod(zero)
-#		
-#		def rows(cls, *args):
-#			if len(args) == (sqr_dims ** 2):
-#				obj = np.asarray(args).reshape((sqr_dims,sqr_dims)).view(cls)
-#			else:
-#				if not (len(args) == sqr_dims and all([len(a) == sqr_dims for a in args])):
-#					raise ValueError("m%d(): needs %d row vectors of length %d or %d scalars" % (sqr_dims, sqr_dims, sqr_dims ** 2))
-#
-#				obj = np.asarray(args).view(cls)
-#			return obj
-#		dict["rows"] = classmethod(rows)
-#		
-#		def columns(cls, *args):
-#			return cls.rows(*args).T
-#		dict["columns"] = classmethod(columns)
-#
-#		def __init__(self):
-#			def __getitem__(self, key):
-#				return self[key].view(vec_class)
-#			dict["__getitem__"] = __getitem__
-#
-#		return type("m%d" % sqr_dims, (Matrix,), dict)
-#
-#matrix_classes = [Matrix.create_class(dim) for dim in range(2,4 +1)]
-#
-#m2 = matrix_classes[0]
-#m3 = matrix_classes[1]
-#m4 = matrix_classes[2]
-#
-#def rotate2(ang):
-#	s,c = np.sin(ang), np.cos(ang)
-#	return m2.rows(+c, -s,
-#				   +s, +c)
-#
-#def translate4(vec):
-#	return m4.rows(1,0,0,vec.x,
-#				   0,1,0,vec.y,
-#				   0,0,1,vec.z,
-#				   0,0,0,1)
-#
-#def calc_orthographic_projection_matrix (size, near=-1.0, far=100.0):
-#	x = 1.0 / (size.x / 2)
-#	y = 1.0 / (size.y / 2)
-#
-#	a = 1.0 / (far -near)
-#	b = near * a
-#
-#	return m4.rows(	x, 0, 0, 0,
-#					0, y, 0, 0,
-#					0, 0, a, b,
-#					0, 0, 0, 1 )
-#
-#a = m2.ident()
-#b = m2.zero()
-#c = m2.rows((1,2),
-#			(3,4))
-#d = m2.rows(1.0,2.0,
-#			3.0,4.0)
-#e = m2.columns(	(1,2),
-#				(3,4))
-#
-#r = rotate2(1)
-#
-#s = m4(r)
-#
-#a = m4(rotate2(1)) * translate4(v3(1,2,3))
-#b = translate4(v3(1,2,3)) * m4(rotate2(1))
-#
-#pass
-#
