@@ -1,4 +1,4 @@
-from vector import *
+from Vector import *
 
 # TODO:
 #  matricies
@@ -112,5 +112,26 @@ a = cross(v2(1,1), v2(+1,-1))
 a = cross(v2(0,1), v2(1,0))
 
 a = rotate90(v2(1,2))
+
+a = repr(v2(1,2))
+a = repr(Vector(1,2))
+
+a = vmax(Vector(-2,-1,0,1,2), Vector(0,0,0,0,0))
+a = vmin(Vector(-2,-1,0,1,2), Vector(0,0,0,0,0))
+
+a = clamp(	Vector(-5,5,3,2),
+			Vector(0,0,2,2),
+			Vector(2,3,3,3) )
+
+a = [lerp(1,2, x*0.25) for x in range(5)]
+
+a = [map(x, 0,4, 0,2) for x in range(5)]
+
+a = v4(1,2,3,4)
+b = v2(a)
+
+a = Vector(1,2, size=4)
+
+b = v3(a)
 
 pass
